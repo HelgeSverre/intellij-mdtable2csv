@@ -19,3 +19,13 @@ dependencies {
         testFramework(TestFrameworkType.Platform)
     }
 }
+
+// Launch the sandbox IDE with a project open by default, so the plugin can be
+// dogfooded on real Markdown immediately. Defaults to ~/code/crescat; override
+// with:  ./gradlew runIde -PrunIdeProject=/absolute/path/to/project
+val runIdeProject: Provider<String> = providers.gradleProperty("runIdeProject")
+    .orElse(providers.systemProperty("user.home").map { "$it/code/crescat" })
+
+tasks.runIde {
+    args(runIdeProject.get())
+}
