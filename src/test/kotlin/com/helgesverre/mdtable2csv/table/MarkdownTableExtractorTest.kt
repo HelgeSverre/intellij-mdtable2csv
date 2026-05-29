@@ -61,8 +61,11 @@ class MarkdownTableExtractorTest : BasePlatformTestCase() {
         assertEquals(listOf(listOf("Note"), listOf("**bold** <br> more")), rows)
     }
 
-    // AE4 — ragged rows: pad short to header width, keep extra cells.
-    fun testRaggedRowsPadShortAndKeepExtra() {
+    // AE4 — ragged rows. Short rows are padded to the header width by the
+    // extractor. Cells beyond the header width are dropped by the GFM parser
+    // itself (they are not valid table content per the spec), so an over-long
+    // row arrives already truncated — the extractor never sees the extra cell.
+    fun testRaggedRowsPadShortRowsAndParserTruncatesExtra() {
         val rows = extractFirstTable(
             """
             | A | B | C |
@@ -75,7 +78,7 @@ class MarkdownTableExtractorTest : BasePlatformTestCase() {
             listOf(
                 listOf("A", "B", "C"),
                 listOf("1", "2", ""),
-                listOf("1", "2", "3", "4"),
+                listOf("1", "2", "3"),
             ),
             rows,
         )
