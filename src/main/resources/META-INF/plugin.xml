@@ -28,6 +28,24 @@
     </extensions>
 
     <actions>
-        <!-- Populated by the conversion actions (U5). -->
+        <group id="com.helgesverre.mdtable2csv.TableToCsvGroup"
+               class="com.helgesverre.mdtable2csv.actions.TableToCsvActionGroup"
+               popup="true"
+               text="Markdown Table to CSV"
+               description="Convert the Markdown table under the caret to CSV">
+            <action id="com.helgesverre.mdtable2csv.CopyTableAsCsv"
+                    class="com.helgesverre.mdtable2csv.actions.CopyTableAsCsvAction"
+                    text="Copy as CSV"
+                    description="Copy this Markdown table to the clipboard as CSV"/>
+            <action id="com.helgesverre.mdtable2csv.OpenTableAsCsv"
+                    class="com.helgesverre.mdtable2csv.actions.OpenTableAsCsvAction"
+                    text="Open in New CSV Tab"
+                    description="Open this Markdown table as CSV in a new editor tab"/>
+            <action id="com.helgesverre.mdtable2csv.SaveTableAsCsv"
+                    class="com.helgesverre.mdtable2csv.actions.SaveTableAsCsvAction"
+                    text="Save as CSV File…"
+                    description="Save this Markdown table to a .csv file"/>
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+        </group>
     </actions>
 </idea-plugin>
