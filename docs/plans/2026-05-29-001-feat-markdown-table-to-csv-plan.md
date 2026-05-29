@@ -1,7 +1,7 @@
 ---
 title: "feat: Markdown Table to CSV"
 type: feat
-status: active
+status: completed
 date: 2026-05-29
 origin: docs/brainstorms/2026-05-29-markdown-table-to-csv-requirements.md
 ---
