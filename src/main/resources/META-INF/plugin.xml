@@ -1,0 +1,27 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <id>com.helgesverre.mdtable2csv</id>
+    <name>Markdown Table to CSV</name>
+    <vendor email="helge.sverre@gmail.com" url="https://github.com/helgesverre">Helge Sverre</vendor>
+
+    <description><![CDATA[
+        Export Markdown tables to CSV without leaving the editor.
+        <br/>
+        Right-click inside a Markdown (GFM) table and convert it to CSV — open the result in a
+        new editor tab or save it to a <code>.csv</code> file.
+    ]]></description>
+
+    <!-- Product and plugin compatibility: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
+    <depends>com.intellij.modules.platform</depends>
+    <!-- Bundled Markdown support — gives us the Markdown PSI we read tables from. -->
+    <depends>org.intellij.plugins.markdown</depends>
+
+    <resource-bundle>messages.MdTable2CsvBundle</resource-bundle>
+
+    <!--
+      Actions/extensions are registered here as the feature is implemented.
+      Planned: an EditorPopupMenu AnAction, enabled only when the caret sits inside a Markdown table.
+    -->
+    <actions>
+    </actions>
+</idea-plugin>
