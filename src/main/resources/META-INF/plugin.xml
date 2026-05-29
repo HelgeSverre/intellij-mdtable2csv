@@ -18,10 +18,16 @@
 
     <resource-bundle>messages.MdTable2CsvBundle</resource-bundle>
 
-    <!--
-      Actions/extensions are registered here as the feature is implemented.
-      Planned: an EditorPopupMenu AnAction, enabled only when the caret sits inside a Markdown table.
-    -->
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Settings -> Tools -> Markdown Table to CSV: the CSV delimiter preference. -->
+        <applicationConfigurable
+            parentId="tools"
+            instance="com.helgesverre.mdtable2csv.settings.MdTable2CsvConfigurable"
+            id="com.helgesverre.mdtable2csv.settings"
+            displayName="Markdown Table to CSV"/>
+    </extensions>
+
     <actions>
+        <!-- Populated by the conversion actions (U5). -->
     </actions>
 </idea-plugin>
