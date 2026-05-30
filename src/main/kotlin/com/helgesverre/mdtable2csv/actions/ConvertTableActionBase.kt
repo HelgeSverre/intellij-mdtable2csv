@@ -1,8 +1,11 @@
 package com.helgesverre.mdtable2csv.actions
 
+import com.helgesverre.mdtable2csv.MdTable2CsvBundle
 import com.helgesverre.mdtable2csv.csv.CsvWriter
 import com.helgesverre.mdtable2csv.settings.MdTable2CsvSettings
 import com.helgesverre.mdtable2csv.table.MarkdownTableExtractor
+import com.intellij.notification.NotificationGroupManager
+import com.intellij.notification.NotificationType
 import com.intellij.openapi.actionSystem.ActionUpdateThread
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
@@ -30,7 +33,14 @@ abstract class ConvertTableActionBase : AnAction() {
     }
 
     final override fun actionPerformed(e: AnActionEvent) {
-        val csv = buildCsv(e) ?: return
+        val csv = buildCsv(e)
+        if (csv == null) {
+            NotificationGroupManager.getInstance()
+                .getNotificationGroup(NOTIFICATION_GROUP_ID)
+                .createNotification(MdTable2CsvBundle.message("notification.noContent"), NotificationType.WARNING)
+                .notify(e.project)
+            return
+        }
         consume(e, csv)
     }
 
@@ -66,3 +76,6 @@ internal fun markdownTableAtCaret(e: AnActionEvent): MarkdownTable? {
         PsiTreeUtil.getParentOfType(element, MarkdownTable::class.java)
     }
 }
+
+/** Must match the notificationGroup id registered in plugin.xml. */
+private const val NOTIFICATION_GROUP_ID = "Markdown Table to CSV"

@@ -25,6 +25,8 @@
             instance="com.helgesverre.mdtable2csv.settings.MdTable2CsvConfigurable"
             id="com.helgesverre.mdtable2csv.settings"
             displayName="Markdown Table to CSV"/>
+        <!-- Balloon shown when a conversion finds no table content at the caret. -->
+        <notificationGroup id="Markdown Table to CSV" displayType="BALLOON"/>
     </extensions>
 
     <actions>
