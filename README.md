@@ -1,8 +1,10 @@
 # Markdown Table to CSV
 
-An IntelliJ Platform plugin that exports Markdown (GFM) tables to CSV from inside the editor.
-Place the caret inside a table, right-click, and convert it — copy to the clipboard, open the
-result in a new tab, or save it to a `.csv` file.
+[![Build](https://github.com/helgesverre/intellij-mdtable2csv/actions/workflows/build.yml/badge.svg)](https://github.com/helgesverre/intellij-mdtable2csv/actions/workflows/build.yml)
+
+An IntelliJ Platform plugin that exports Markdown (GFM) tables to CSV without leaving the editor.
+Place the caret inside a table, right-click **Markdown Table to CSV**, and convert it — copy to the
+clipboard, open the result in a new tab, or save it to a `.csv` file.
 
 ## Features
 
@@ -13,31 +15,45 @@ result in a new tab, or save it to a `.csv` file.
 - **Configurable delimiter** — comma, semicolon, or tab (Settings → Tools → Markdown Table to CSV).
 - Correct RFC 4180 escaping for cells containing the delimiter, quotes, or newlines.
 
-## Tech
+## Usage
+
+1. Open a Markdown file and click inside any GFM table.
+2. Right-click → **Markdown Table to CSV**, then choose **Copy as CSV**, **Open in New CSV Tab**, or
+   **Save as CSV File…**.
+
+The delimiter (comma, semicolon, or tab) is configurable under
+**Settings → Tools → Markdown Table to CSV**.
+
+## Installation
+
+Once published, install from inside the IDE:
+**Settings/Preferences → Plugins → Marketplace → search "Markdown Table to CSV" → Install**.
+
+To install a local build, run `just build` (or `./gradlew buildPlugin`), then
+**Settings/Preferences → Plugins → ⚙️ → Install Plugin from Disk…** and select the ZIP from
+`build/distributions/`.
+
+## How it works
 
 - Kotlin + the [IntelliJ Platform Gradle Plugin](https://github.com/JetBrains/intellij-platform-gradle-plugin) 2.x.
 - Reads tables from the bundled Markdown plugin's PSI (`org.intellij.plugins.markdown`).
-- Targets IntelliJ Platform 2025.2 (`since-build 252`), JVM toolchain 21.
+- Targets IntelliJ Platform 2025.2 (`since-build 252`) and up, JVM toolchain 21.
 
 ## Development
 
-```bash
-./gradlew test         # compile + run the test suite
-./gradlew runIde       # launch a sandbox IDE with the plugin installed
-./gradlew verifyPlugin # run the IntelliJ Plugin Verifier against recommended IDEs
-./gradlew buildPlugin  # produce a distributable ZIP under build/distributions
-```
-
-### Publishing
-
-Signing and publishing read their secrets from environment variables, so nothing sensitive lives in
-the repo:
+This project uses [`just`](https://github.com/casey/just) as a command runner — run `just` to list
+every recipe:
 
 ```bash
-CERTIFICATE_CHAIN=…  PRIVATE_KEY=…  PRIVATE_KEY_PASSWORD=…  PUBLISH_TOKEN=…  ./gradlew publishPlugin
+just test       # compile + run the test suite
+just run        # launch a sandbox IDE with the plugin installed
+just verify     # run the IntelliJ Plugin Verifier against recommended IDEs
+just build      # produce a distributable ZIP under build/distributions
 ```
 
-The first Marketplace upload must be done manually; automated `publishPlugin` releases apply only
-after the plugin has been published once.
+Every recipe wraps Gradle, so `./gradlew <task>` works too if you don't have `just`. See
+[RELEASING.md](RELEASING.md) for signing and publishing to the JetBrains Marketplace.
 
-This project was scaffolded from the [IntelliJ Platform Plugin Template](https://github.com/JetBrains/intellij-platform-plugin-template).
+## License
+
+[MIT](LICENSE).
