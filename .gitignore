@@ -4,3 +4,10 @@
 .intellijPlatform
 .kotlin
 build
+
+# Plugin signing secrets — never commit. Mirror these into GitHub Actions secrets for releases.
+.secrets/
+*.pem
+*.crt
+*.p12
+*.env
